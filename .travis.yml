@@ -3,7 +3,7 @@ services:
   - docker
 
 before-install:
-  - docker build -t leminh/docker-test -f Dockerfile.dev .
+  - docker build -t docker-test -f Dockerfile.dev .
 
 script:
-  - docker run -e CI=true leminh/docker-test npm run test
+  - docker run -e CI=true docker-test npm run test
