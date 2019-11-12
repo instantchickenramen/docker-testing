@@ -6,4 +6,16 @@ before_install:
   - docker build -t leminh/docker-test -f Dockerfile.dev .
 
 script:
-  - docker run -e CI=true leminh/docker-test npm run test
+  - docker run -e CI=true leminh/docker-test npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: 'us-west-2'
+  app: 'docker-test'
+  env: 'Docker-test-env'
+  bucket-name: 'elasticbeanstal-us-west-2-...'
+  bucket-path: 'docket-test'
+  on:
+    branch: master
+  access_key_id: '$AWS_ACCESS_KEY'
+  secret_access_key: '$AWS_SECRET_KEY'
